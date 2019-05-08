@@ -3,6 +3,6 @@ export default {
   color: 'white',
   backgroundColor: {
     light: 'red',
-    dark: 'blue',
+    dark: 'blue'
   }
 }

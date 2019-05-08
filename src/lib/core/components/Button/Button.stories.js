@@ -1,8 +1,11 @@
 import React from 'react';
 import Button from './Button';
+import docs from './Button.docs.md';
 
 import getStories from '../../utils/getStories';
 
-getStories('Button').forEach(stories => {
-  stories.add('default', () => <Button>Hello</Button>)
+getStories('Button').map(stories => {
+  stories.add('default', () => <Button>Hello</Button>, {
+    notes: { markdown: docs }
+  })
 })
