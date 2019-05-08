@@ -1,9 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider } from 'styled-components/macro';
+import { extend } from './lib';
+import { theme } from './lib/core';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// const activeTheme = 'light';
+const activeTheme = 'dark';
+
+ReactDOM.render((
+  <ThemeProvider theme={extend(theme, activeTheme)}>
+    <App />
+  </ThemeProvider>
+), document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
