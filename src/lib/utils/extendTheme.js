@@ -1,27 +1,32 @@
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 
-const extend = (props, activeTheme) => (path, def, activeThemeOverride) => {
+const getModeVal = (theme, mode) => (path, def, modeOverride) => {
 
-  // use overriden theme if provided, theme
+  console.log(theme, mode, path, def, modeOverride);
+
+  // use overriden mode if provided, mode
   // in closure otherwise
-  const theme = activeThemeOverride || activeTheme;
+  const modeActive = modeOverride || mode;
 
   // get value from theme
-  const val = get(props, path, def);
+  const val = get(theme, path, def);
 
-  // if no theme is provided, return resolved or default value
-  if (isNil(theme)) return val;
+  // if no mode is provided, return resolved or default value
+  if (isNil(modeActive)) return val;
+
+  // ...
+  if (isNil(val)) return isNil(def) ? val : def;
 
   // if val is an object that has theme
   // id as one of its keys return theme value
-  if (typeof val === 'object' && !Array.isArray(val) && !isNil(val[theme])) return val[theme];
+  if (typeof val === 'object' && !Array.isArray(val) && !isNil(val[modeActive])) return val[modeActive];
 
   // return value otherwise
   return val;
 }
 
-export default (theme = {}, activeTheme) => ({
-  get: extend(theme, activeTheme),
+export default (theme = {}, mode) => ({
+  get: getModeVal(theme, mode),
   ...theme,
 })

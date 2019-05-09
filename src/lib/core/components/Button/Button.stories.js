@@ -1,11 +1,8 @@
 import React from 'react';
-import Button from './Button';
+import Button from './';
 import docs from './Button.docs.md';
+import addStory from '../../utils/addStory';
 
-import getStories from '../../utils/getStories';
+const addButtonStory = addStory('Button', docs);
 
-getStories('Button').map(stories => {
-  stories.add('default', () => <Button>Hello</Button>, {
-    notes: { markdown: docs }
-  })
-})
+addButtonStory('default', () => <Button>Hello</Button>)
