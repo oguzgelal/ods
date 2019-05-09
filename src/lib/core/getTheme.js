@@ -5,7 +5,7 @@ export const modes = [
   { name: 'Dark', id: 'dark' },
 ]
 
-export const colors = {
+const _colors = {
   black:      '#182026',
   darkGrey1:  '#182026',
   darkGrey2:  '#202B33',
@@ -25,11 +25,15 @@ export const colors = {
   white:      '#FFFFFF',
 }
 
-export default {
-  colors,
-  background: {
-    light: colors.lightGrey5,
-    dark: colors.darkGrey5,
-  },
-  button
+export default ({ colors } = {}) => {
+  const useColors = colors || _colors;
+
+  return {
+    colors: useColors,
+    background: {
+      light: useColors.lightGrey5,
+      dark: useColors.darkGrey5,
+    },
+    button
+  }
 }

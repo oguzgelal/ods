@@ -1,4 +1,4 @@
 import addStory from '../../utils/addStory';
-import theme, { modes } from '../theme';
+import getTheme, { modes } from '../getTheme';
 
-export default addStory('Core', theme, modes)
+export default addStory('Core', getTheme, modes)
