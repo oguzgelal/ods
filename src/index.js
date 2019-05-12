@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components/macro';
-import { extend } from './lib';
-import { theme } from './lib/core';
+import { theme, colors } from './lib';
+import { styles as buttonStyles } from './lib/components/Button';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// const activeTheme = 'light';
-const activeTheme = 'dark';
+const newTheme = theme
+  .override(t => colors.override({ black: '#000000' }))
+  .override(t => buttonStyles.override({ color: t.get('colors.black') }))
+
+console.log('FINAL THEME', newTheme);
 
 ReactDOM.render((
-  <ThemeProvider theme={extend(theme, activeTheme)}>
+  <ThemeProvider theme={newTheme}>
     <App />
   </ThemeProvider>
 ), document.getElementById('root'));

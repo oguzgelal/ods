@@ -1,11 +1,7 @@
-import button from './components/Button/Button.styles';
+import prepare from '../utils/prepare';
 
-export const modes = [
-  { name: 'Light', id: 'light' },
-  { name: 'Dark', id: 'dark' },
-]
-
-const _colors = {
+export const id = 'colors';
+export default prepare(id, theme => ({
   black:      '#182026',
   darkGrey1:  '#182026',
   darkGrey2:  '#202B33',
@@ -23,17 +19,4 @@ const _colors = {
   lightGrey4: '#EBF1F5',
   lightGrey5: '#F5F8FA',
   white:      '#FFFFFF',
-}
-
-export default ({ colors } = {}) => {
-  const useColors = colors || _colors;
-
-  return {
-    colors: useColors,
-    background: {
-      light: useColors.lightGrey5,
-      dark: useColors.darkGrey5,
-    },
-    button
-  }
-}
+}))

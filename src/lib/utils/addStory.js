@@ -1,26 +1,27 @@
 import { storiesOf } from '@storybook/react';
 import { jsxDecorator } from 'storybook-addon-jsx';
 import { withInfo } from '@storybook/addon-info';
+import modes from '../styles/modes';
 import wrap from './wrap';
-import extendTheme from './extendTheme';
+import { getTheme } from '../';
 
-export default (root, getTheme, modes = []) => (component, docs) => (title, render) => {
+export default (component, docs) => (title, render) => {
 
   // ...
   modes.forEach(mode => {
     const storyProps = {};
 
     // ...
-    const theme = extendTheme(getTheme(), mode.id);
+    const theme = getTheme(mode.id);
 
     // ...
     if (docs) storyProps.notes = { info: docs }
 
     // ...
-    storiesOf(`${root}|${component}/${mode.id}`, module)
+    storiesOf(`${component}/${mode.id}`, module)
       .addDecorator(withInfo({ text: docs, header: false }))
       .addDecorator(jsxDecorator)
-      .addDecorator(storyFn => wrap(getTheme(), mode.id)(storyFn()))
+      .addDecorator(storyFn => wrap(mode.id)(storyFn()))
       .addParameters({
         backgrounds: [{
           name: mode.name,

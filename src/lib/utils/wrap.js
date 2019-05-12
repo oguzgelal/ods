@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { ThemeProvider } from 'styled-components/macro';
-import extendTheme from './extendTheme';
+import { getTheme } from '../';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -12,8 +12,8 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export default (theme, mode) => children => (
-  <ThemeProvider theme={extendTheme(theme, mode)}>
+export default mode => children => (
+  <ThemeProvider theme={getTheme(mode)}>
     <Wrapper>
       {children}
     </Wrapper>
