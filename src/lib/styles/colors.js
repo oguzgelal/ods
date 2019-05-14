@@ -1,7 +1,7 @@
-import prepare from '../utils/prepare';
+import createStyle from '../utils/createStyle';
 
 export const id = 'colors';
-export default prepare(id, theme => ({
+export default createStyle(id, theme => ({
   black:      '#182026',
   darkGrey1:  '#182026',
   darkGrey2:  '#202B33',

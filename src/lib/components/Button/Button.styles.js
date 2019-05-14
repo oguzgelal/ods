@@ -1,11 +1,12 @@
-import prepare from '../../utils/prepare';
+import createStyle from '../../utils/createStyle';
 import { LIGHT, DARK } from '../../styles/modes';
 
 export const id = 'button';
-export default prepare(id, theme => ({
+export default createStyle(id, theme => ({
   color: 'white',
   backgroundColor: {
+    default: 'black',
     [LIGHT.id]: 'red',
-    [DARK.id]: 'blue'
+    [DARK.id]: 'blue',
   }
 }))
