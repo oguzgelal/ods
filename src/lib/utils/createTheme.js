@@ -2,28 +2,7 @@ import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
 import styles from '../styles';
-
-// get themed value from given path
-const getVal = (theme, path, modeActive) => {
-  // get value from theme
-  const val = get(theme, path, null);
-  // val is an object
-  if (typeof val === 'object' && !Array.isArray(val)) {
-    // if no mode is provided, return default value
-    if (isNil(modeActive) && !isNil(val.default)) return val.default;
-    // if no mode provided and there is no default value, return val
-    else if (isNil(modeActive) && isNil(val.default)) return val;
-    // val has value for provided mode, return theme value
-    else if (!isNil(val[modeActive])) return val[modeActive];
-    // val has no value for provided mode, return fallback (default) value
-    else if (!isNil(val.default)) return val.default;
-    // val has no value for provided mode and has no default value
-    // return fallback (default) value
-    else return val;
-  }
-  // return value otherwise
-  return val;
-}
+import createStyle from './createStyle';
 
 // get style value depending on the mode
 const getModeVal = (theme, mode) => (_paths, def, modeOverride) => {
@@ -36,7 +15,11 @@ const getModeVal = (theme, mode) => (_paths, def, modeOverride) => {
   for(let i = 0; i < paths.length; i++) {
     const path = paths[i];
     // get themed value from given path
-    const val = getVal(theme, path, def, modeActive);
+    const val = (
+      get(theme, `${path}['${modeActive}']`,
+        get(theme, `${path}.default`,
+          get(theme, path, null))))
+
     // return value
     if (!isNil(val)) return val;
   }
@@ -51,7 +34,7 @@ const addToTheme = (theme, overriden, styles) => {
     overriden[styles.id].get(theme)
 }
 
-const createThemeAcc = (_theme, _styles) => (...overridenStyles) => mode => {
+const createThemeAcc = (_theme, _styles, stylesMerge = []) => (...overridenStyles) => mode => {
 
   // initiate empty theme object or use existing
   const theme = (isNil(_theme) || isEmpty(_theme)) ?
@@ -64,12 +47,18 @@ const createThemeAcc = (_theme, _styles) => (...overridenStyles) => mode => {
     .reduce((acc, c) => ({...acc, [c.id]: c}), {});
 
   // add styles to the theme
-  (_styles || styles).forEach(style => {
+  const useStyles = _styles || styles;
+  (useStyles.concat(stylesMerge)).forEach(style => {
     addToTheme(theme, overriden, style)
   })
 
   // attach getter method
   theme.get = getModeVal(theme, mode)
+
+  // TODO: insert a style to the theme
+  theme.extend = (..._stylesMerge) => {
+    return createThemeAcc(theme, _styles, _stylesMerge)(...overridenStyles)(mode);
+  }
 
   // attach overrider
   theme.override = (...overrideFunctions) => {

@@ -6,3 +6,5 @@ export { getTheme } from './styles/themes';
 export { default as modes } from './styles/modes';
 export { default as colors } from './styles/colors';
 export { default as background } from './styles/background';
+
+export { default as createStyle } from './utils/createStyle';
