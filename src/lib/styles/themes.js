@@ -5,3 +5,4 @@ export const getTheme = createTheme;
 export const light = createTheme(LIGHT.id);
 export const dark = createTheme(DARK.id);
 export const theme = createTheme(DEFAULT.id);
+export default theme;
