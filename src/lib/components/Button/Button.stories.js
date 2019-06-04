@@ -1,7 +1,9 @@
 import React from 'react';
+import addStory, { Grid, GridItem } from '../../utils/addStory';
+
 import Button from './';
 import docs from './Button.docs.md';
-import addStory, { Grid, GridItem } from '../../utils/addStory';
+
 
 const addButtonStory = addStory('Button', docs);
 

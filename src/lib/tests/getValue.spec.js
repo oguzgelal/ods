@@ -46,8 +46,8 @@ describe('get api should work properly with different mods', () => {
   it('fallback values should work', () => {
     const colors = createStyle('c', theme => ({ danger: 'red' }))
     const theme = createThemeWithStyles(colors)('light');
-    expect(theme.get('path_not_present', 'orange')).toBe('orange');
-    expect(theme.get(['p1', 'p2', 'p3'], 'orange')).toBe('orange');
+    expect(theme.get('path_not_present', { default: 'orange' })).toBe('orange');
+    expect(theme.get(['p1', 'p2', 'p3'], { default: 'orange' })).toBe('orange');
   })
 
 })

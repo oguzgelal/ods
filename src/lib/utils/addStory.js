@@ -41,7 +41,7 @@ export default (component, docs) => (title, render) => {
         .addParameters({
           backgrounds: [{
             name: mode.name,
-            value: theme.get('background', null, mode.id),
+            value: theme.get('background', { mode: mode.id }),
             default: true
           }]
         })
