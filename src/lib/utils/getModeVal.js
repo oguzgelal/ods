@@ -33,8 +33,6 @@ export default (theme, mode) => (pathsArg, {
     // return value
     if (!isNil(val)) {
       if (parseUnitArg) val = parseUnit(val);
-      console.log('val', val);
-      console.log('transparentizeArg', transparentizeArg);
       if (!isNil(transparentizeArg)) val = transparentize(transparentizeArg, val);
       return val;
     }

@@ -27,10 +27,13 @@ const Wrapper = styled.div`
     width: ${parseUnit(p.dim)};
     height: ${parseUnit(p.dim)};
   `}
+
   animation-name: ${spin};
   animation-duration: ${p => p.theme.get('loadingSpinner.animationDuration')};
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+
+  user-select: none;
 
   &:after {
     border-radius: 50%;
@@ -50,7 +53,7 @@ const LoadingSpinner = props => (
 
 LoadingSpinner.propTypes = {
   children: PropTypes.string,
-  dim: PropTypes.number,
+  dim: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default LoadingSpinner;
