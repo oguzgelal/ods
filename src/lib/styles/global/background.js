@@ -1,6 +1,7 @@
 import createStyle from '../../utils/createStyle';
+import * as modes from '../../constants/modes';
 
 export default createStyle('background', theme => ({
-  light: theme.color.lightGray5,
-  dark: theme.color.darkGray5,
+  [modes.LIGHT]: theme.color.lightGray5,
+  [modes.DARK]: theme.color.darkGray5,
 }))

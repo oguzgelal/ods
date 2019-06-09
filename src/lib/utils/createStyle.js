@@ -1,8 +1,10 @@
 import merge from 'lodash/merge';
 
-export default (id, themeFn) => ({ id,
+export default (id, themeFn) => ({
+  id,
   get: theme => themeFn(theme),
-  override: overrideObj => ({ id,
+  override: overrideObj => ({
+    id,
     get: theme => merge(themeFn(theme), overrideObj),
   })
 })

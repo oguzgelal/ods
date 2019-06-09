@@ -1,11 +1,16 @@
 import createStyle from '../../utils/createStyle';
+import * as sizes from '../../constants/sizes';
 
 // paddings and margins - units are in pixels
 export default createStyle('gap', theme => ({
-  lrSmall: 7,
-  lrMedium: 10,
-  lrLarge: 15,
-  tbSmall: 2,
-  tbMedium: 5,
-  tbLarge: 5,
+  lr: {
+    [sizes.SMALL]: 7,
+    [sizes.MEDIUM]: 10,
+    [sizes.LARGE]: 15,
+  },
+  tb: {
+    [sizes.SMALL]: 2,
+    [sizes.MEDIUM]: 5,
+    [sizes.LARGE]: 5
+  },
 }))

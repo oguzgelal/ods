@@ -1,10 +1,11 @@
 import createStyle from '../../utils/createStyle';
+import * as sizes from '../../constants/sizes';
 
 // units are in pixels
 export default createStyle('borderRadius', theme => ({
-  xsmall: 1,
-  small: 3,
-  medium: 3,
-  large: 3,
-  xlarge: 4,
+  [sizes.XSMALL]: 1,
+  [sizes.SMALL]: 3,
+  [sizes.MEDIUM]: 3,
+  [sizes.LARGE]: 3,
+  [sizes.XLARGE]: 4,
 }))

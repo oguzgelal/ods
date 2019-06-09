@@ -1,6 +1,6 @@
 import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
-import getModeVal from './getModeVal';
+import getThemeValue from './getThemeValue';
 import addToTheme from './addToTheme';
 import styles from '../styles';
 
@@ -23,7 +23,7 @@ const createThemeAcc = (themeArg, stylesArg, stylesMerge = []) => (...overridenS
   })
 
   // attach getter method
-  theme.get = getModeVal(theme, mode)
+  theme.get = getThemeValue(theme, mode)
 
   // insert a style to the theme
   theme.extend = (...stylesMerge) => {

@@ -2,30 +2,61 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import createStyle from '../../utils/createStyle';
-import get from 'lodash/get';
+import * as intents from '../../constants/intents';
+import * as sizes from '../../constants/sizes';
+import * as modes from '../../constants/modes';
 
 export const styles = createStyle('button', theme => ({
+
   // borders
   border: 'none',
-  borderRadiusSmall: theme.borderRadius.small,
-  borderRadiusMedium: theme.borderRadius.medium,
-  borderRadiusLarge: theme.borderRadius.large,
+  borderRadiusSmall: theme.borderRadius[sizes.SMALL],
+  borderRadiusMedium: theme.borderRadius[sizes.MEDIUM],
+  borderRadiusLarge: theme.borderRadius[sizes.LARGE],
+
   // padding
-  paddingSmall: `${theme.gap.tbSmall}px ${theme.gap.lrSmall}px`,
-  paddingMedium: `${theme.gap.tbMedium}px ${theme.gap.lrMedium}px`,
-  paddingLarge: `${theme.gap.tbLarge}px ${theme.gap.lrLarge}px`,
+  paddingSmall: `${theme.gap.tb[sizes.SMALL]}px ${theme.gap.lr[sizes.SMALL]}px`,
+  paddingMedium: `${theme.gap.tb[sizes.MEDIUM]}px ${theme.gap.lr[sizes.MEDIUM]}px`,
+  paddingLarge: `${theme.gap.tb[sizes.LARGE]}px ${theme.gap.lr[sizes.LARGE]}px`,
+
   // font size
-  fontSizeSmall: theme.text.fontSizeSmall,
-  fontSizeMedium: theme.text.fontSizeMedium,
-  fontSizeLarge: theme.text.fontSizeLarge,
-  // default styling
-  defaultBackground: { light: theme.color.lightGray3, dark: theme.color.darkGray3 },
-  defaultBackgroundHover: { light: theme.color.lightGray2, dark: theme.color.darkGray2 },
-  defaultBackgroundActive: { light: theme.color.lightGray1, dark: theme.color.darkGray1 },
-  defaultBackgroundDisabled: { light: theme.color.lightGray1, dark: theme.color.darkGray4 },
-  defaultOpacityDisabled: { light: '0.35', dark: '0.6' },
-  defaultColor: theme.text.defaultColor,
-  defaultColorDisabled: theme.text.defaultColorDisabled,
+  fontSizeSmall: theme.text.fontSize[sizes.SMALL],
+  fontSizeMedium: theme.text.fontSize[sizes.MEDIUM],
+  fontSizeLarge: theme.text.fontSize[sizes.LARGE],
+
+  // styles
+  color: theme.text.color,
+  colorDisabled: theme.text.colorDisabled,
+  background: {
+    [intents.DEFAULT]: {
+      [modes.LIGHT]: theme.color.lightGray3,
+      [modes.DARK]: theme.color.darkGray3,
+    }
+  },
+  backgroundHover: {
+    [intents.DEFAULT]: {
+      [modes.LIGHT]: theme.color.lightGray2,
+      [modes.DARK]: theme.color.darkGray2,
+    }
+  },
+  backgroundActive: {
+    [intents.DEFAULT]: {
+      [modes.LIGHT]: theme.color.lightGray1,
+      [modes.DARK]: theme.color.darkGray1,
+    }
+  },
+  backgroundDisabled: {
+    [intents.DEFAULT]: {
+      [modes.LIGHT]: theme.color.lightGray1,
+      [modes.DARK]: theme.color.darkGray4,
+    }
+  },
+  opacityDisabled: {
+    [intents.DEFAULT]: {
+      [modes.LIGHT]: '0.35',
+      [modes.DARK]: '0.6'
+    }
+  },
 }))
 
 const Wrapper = styled.button`
@@ -36,18 +67,18 @@ const Wrapper = styled.button`
   /* styling */
   outline: none;
   border: ${p => p.theme.get('button.border')};
-  background: ${p => p.theme.get('button.defaultBackground')};
-  color: ${p => p.theme.get(['button.defaultColor'])};
+  background: ${p => p.theme.get('button.background', { intent: p.intent })};
+  color: ${p => p.theme.get('button.color', { intent: p.intent })};
 
   &:hover {
     cursor: pointer;
-    background: ${p => p.theme.get('button.defaultBackgroundHover')};
-    color: ${p => p.theme.get('button.default.colorHover')};
+    background: ${p => p.theme.get('button.backgroundHover', { intent: p.intent })};
+    color: ${p => p.theme.get('button.colorHover', { intent: p.intent })};
   }
 
   &:active {
-    background: ${p => p.theme.get('button.defaultBackgroundActive')};
-    color: ${p => p.theme.get('button.default.colorActive')};
+    background: ${p => p.theme.get('button.backgroundActive', { intent: p.intent })};
+    color: ${p => p.theme.get('button.colorActive', { intent: p.intent })};
   }
 
   /* sizing */
@@ -69,41 +100,39 @@ const Wrapper = styled.button`
     border-radius: ${p.theme.get(`button.borderRadiusLarge`)}px;
   `}
 
-  /* intents */
-  ${p => p.intent === 'default' && ``}
-  ${p => p.intent === 'primary' && ``}
-  ${p => p.intent === 'success' && ``}
-  ${p => p.intent === 'warning' && ``}
-  ${p => p.intent === 'danger' && ``}
-
   /* states */
   ${p => p.disabled && `
-    color: ${p.theme.get('button.defaultColorDisabled')};
-    background: ${p.theme.get('button.defaultBackgroundDisabled')};
-    opacity: ${p.theme.get('button.defaultOpacityDisabled')};
+    color: ${p.theme.get('button.colorDisabled', { intent: p.intent })};
+    background: ${p.theme.get('button.backgroundDisabled', { intent: p.intent })};
+    opacity: ${p.theme.get('button.opacityDisabled', { intent: p.intent })};
 
     &:hover,
     &:active {
       cursor: not-allowed;
-      color: ${p.theme.get('button.defaultColorDisabled')};
-      background: ${p.theme.get('button.defaultBackgroundDisabled')};
+      color: ${p.theme.get('button.colorDisabled', { intent: p.intent })};
+      background: ${p.theme.get('button.backgroundDisabled', { intent: p.intent })};
     }
   `}
 `;
 
-const Button = props => (
-  <Wrapper {...props} />
-);
+const Button = propsArg => {
+  const { children, ...props } = propsArg;
+  return (
+    <Wrapper {...props}>
+      {children}
+    </Wrapper>
+  )
+};
 
 Button.propTypes = {
   disabled: PropTypes.bool,
-  intent: PropTypes.oneOf(['default', 'primary', 'success', 'warning', 'danger']),
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  intent: PropTypes.oneOf(Object.values(intents)),
+  size: PropTypes.oneOf(Object.values(sizes)),
 };
 
 Button.defaultProps = {
-  size: 'medium',
-  intent: 'default',
+  size: sizes.MEDIUM,
+  intent: intents.DEFAULT,
 }
 
 export default Button;
