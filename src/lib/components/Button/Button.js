@@ -8,23 +8,14 @@ import * as modes from '../../constants/modes';
 
 export const styles = createStyle('button', theme => ({
 
-  // borders
   border: 'none',
-  borderRadiusSmall: theme.borderRadius[sizes.SMALL],
-  borderRadiusMedium: theme.borderRadius[sizes.MEDIUM],
-  borderRadiusLarge: theme.borderRadius[sizes.LARGE],
+  borderRadius: theme.borderRadius,
+  paddingTop: theme.gap.tb,
+  paddingBottom: theme.gap.tb,
+  paddingLeft: theme.gap.lr,
+  paddingRight: theme.gap.lr,
+  fontSize: theme.text.fontSize,
 
-  // padding
-  paddingSmall: `${theme.gap.tb[sizes.SMALL]}px ${theme.gap.lr[sizes.SMALL]}px`,
-  paddingMedium: `${theme.gap.tb[sizes.MEDIUM]}px ${theme.gap.lr[sizes.MEDIUM]}px`,
-  paddingLarge: `${theme.gap.tb[sizes.LARGE]}px ${theme.gap.lr[sizes.LARGE]}px`,
-
-  // font size
-  fontSizeSmall: theme.text.fontSize[sizes.SMALL],
-  fontSizeMedium: theme.text.fontSize[sizes.MEDIUM],
-  fontSizeLarge: theme.text.fontSize[sizes.LARGE],
-
-  // styles
   color: theme.text.color,
   colorDisabled: theme.text.colorDisabled,
   background: {
@@ -81,24 +72,12 @@ const Wrapper = styled.button`
     color: ${p => p.theme.get('button.colorActive', { intent: p.intent })};
   }
 
-  /* sizing */
-  ${p => p.size === 'small' && `
-    padding: ${p.theme.get(`button.paddingSmall`)};
-    font-size: ${p.theme.get(`button.fontSizeSmall`)};
-    border-radius: ${p.theme.get(`button.borderRadiusSmall`)}px;
-  `}
-
-  ${p => p.size === 'medium' && `
-    padding: ${p.theme.get(`button.paddingMedium`)};
-    font-size: ${p.theme.get(`button.fontSizeMedium`)};
-    border-radius: ${p.theme.get(`button.borderRadiusMedium`)}px;
-  `}
-
-  ${p => p.size === 'large' && `
-    padding: ${p.theme.get(`button.paddingLarge`)};
-    font-size: ${p.theme.get(`button.fontSizeLarge`)};
-    border-radius: ${p.theme.get(`button.borderRadiusLarge`)}px;
-  `}
+  padding-top: ${p => p.theme.get(`button.paddingTop`, { size: p.size })}px;
+  padding-bottom: ${p => p.theme.get(`button.paddingBottom`, { size: p.size })}px;
+  padding-right: ${p => p.theme.get(`button.paddingRight`, { size: p.size })}px;
+  padding-left: ${p => p.theme.get(`button.paddingLeft`, { size: p.size })}px;
+  border-radius: ${p => p.theme.get(`button.borderRadius`, { size: p.size })}px;
+  font-size: ${p => p.theme.get(`button.fontSize`, { size: p.size })};
 
   /* states */
   ${p => p.disabled && `

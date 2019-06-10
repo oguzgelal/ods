@@ -19,5 +19,4 @@ export default createStyle('color', theme => ({
   lightGray3: lighten(0.03, '#e0e0e0'),
   lightGray4: lighten(0.05, '#e0e0e0'),
   lightGray5: lighten(0.14, '#e0e0e0'),
-
 }))

@@ -15,7 +15,7 @@ export const styles = createStyle('loadingSpinner', theme => ({
   animationDuration: '0.8s',
   // color
   color: theme.text.color,
-}))
+}));
 
 const spin = keyframes`
   0% { transform: rotate(0deg); }

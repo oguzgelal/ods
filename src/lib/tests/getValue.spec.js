@@ -21,7 +21,7 @@ describe('get api should work properly with different mods', () => {
     const colors = createStyle('c', theme => ({
       danger: {
         light: 'red',
-        default: 'black'
+        mode_fallback: 'black'
       }
     }))
 

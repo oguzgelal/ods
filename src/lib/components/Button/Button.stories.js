@@ -4,14 +4,18 @@ import addStory, { Grid, GridItem } from '../../utils/addStory';
 import Button from './';
 import docs from './Button.docs.md';
 
+import * as sizes from '../../constants/sizes';
+
 
 const addButtonStory = addStory('Button', docs);
 
 addButtonStory('size', () => (
   <Grid>
-    <GridItem><Button size="small">Small</Button></GridItem>
-    <GridItem><Button size="medium">Medium</Button></GridItem>
-    <GridItem><Button size="large">Large</Button></GridItem>
+    <GridItem><Button size={sizes.XSMALL}>xSmall</Button></GridItem>
+    <GridItem><Button size={sizes.SMALL}>Small</Button></GridItem>
+    <GridItem><Button size={sizes.MEDIUM}>Medium</Button></GridItem>
+    <GridItem><Button size={sizes.LARGE}>Large</Button></GridItem>
+    <GridItem><Button size={sizes.XLARGE}>xLarge</Button></GridItem>
   </Grid>
 ))
 

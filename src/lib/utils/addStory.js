@@ -8,6 +8,8 @@ import { withInfo } from '@storybook/addon-info';
 import wrap from './wrap';
 import { getTheme } from '../';
 
+import * as modes from '../constants/modes';
+
 const Grid = styled.div`
   display: flex;
   align-items: center;
@@ -27,7 +29,7 @@ export { Grid, GridItem };
 export default (component, docs) => (title, render) => {
 
   // ...
-  [{ id: 'light', name: 'Light' }, { id: 'dark', name: 'Dark' }]
+  [{ id: modes.LIGHT, name: 'Light' }, { id: modes.DARK, name: 'Dark' }]
     .forEach(mode => {
       const storyProps = {};
       const theme = getTheme(mode.id);
@@ -45,6 +47,6 @@ export default (component, docs) => (title, render) => {
             default: true
           }]
         })
-        .add(`${title} - ${mode.id}`, render, storyProps)
+        .add(`${title} (${mode.name})`, render, storyProps)
       })
 }
